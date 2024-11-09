@@ -1,4 +1,4 @@
-import { User, GetUsers, GetData } from '../types'
+import { UserSummary, GetUsers, GetData, User } from '../types'
 const LEGO_ENDPOINT = `https://d16m5wbro86fg2.cloudfront.net`
 
 // returns a list of users in the catalogue
@@ -13,7 +13,7 @@ export const getUsers: GetUsers = async (API_ENDPOINT = LEGO_ENDPOINT) => {
 }
 
 //returns a summary of a single user
-export const getUserByUsername: GetData<User> = async (username, API_ENDPOINT = LEGO_ENDPOINT) => {
+export const getUserByUsername: GetData<UserSummary> = async (username, API_ENDPOINT = LEGO_ENDPOINT) => {
     try {
         const response = await fetch(`${API_ENDPOINT}/api/user/by-username/${username}`)
         return response.json()
@@ -25,7 +25,7 @@ export const getUserByUsername: GetData<User> = async (username, API_ENDPOINT = 
 }
 
 // return the full data for a single user
-export const getUserById = async (id: string, API_ENDPOINT = LEGO_ENDPOINT) => {
+export const getUserById: GetData<User> = async (id: string, API_ENDPOINT = LEGO_ENDPOINT) => {
     try {
         const response = await fetch(`${API_ENDPOINT}/api/user/by-id/${id}`)
         return response.json()
@@ -37,7 +37,12 @@ export const getUserById = async (id: string, API_ENDPOINT = LEGO_ENDPOINT) => {
 
 // returns a list of the sets in the catalogue
 export const getSets = async (API_ENDPOINT = LEGO_ENDPOINT) => {
-    return fetch(`${API_ENDPOINT}/api/sets`)
+    try {
+        const response = await fetch(`${API_ENDPOINT}/api/sets`)
+        return response.json()
+    } catch (error) {
+
+    }
 }
 //returns a summary of a single set
 export const getSetsByName = async (name: string, API_ENDPOINT = LEGO_ENDPOINT) => {
@@ -49,6 +54,6 @@ export const getSetsById = async (id: string, API_ENDPOINT = LEGO_ENDPOINT) => {
 }
 
 //returns the full list of colours available
-export const getColors = async (API_ENDPOINT = LEGO_ENDPOINT) => {
-    return fetch(`${API_ENDPOINT}/api/colors`)
+export const getColours = async (API_ENDPOINT = LEGO_ENDPOINT) => {
+    return fetch(`${API_ENDPOINT}/api/colours`)
 }
