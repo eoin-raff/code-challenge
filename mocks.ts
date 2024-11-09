@@ -1,4 +1,4 @@
-{
+export const userArray = {
     "Users": [
         {
             "id": "353555ef-3135-4d3a-8e39-c680e1eb26d2",
@@ -67,4 +67,19 @@
             "brickCount": 1405
         }
     ]
+}
+export const username = 'brickfan35'
+export const id = '6d6bc9f2-a762-4a30-8d9a-52cf8d8373fc'
+export const user = {
+    "id": id,
+    "username": username,
+    "location": "UKY",
+    "brickCount": 1413
+}
+export const endpoint = `mockUrl`
+export const API = {
+    [`${endpoint}/api/users`]: userArray,
+    [`${endpoint}/api/user/by-username/${username}`]: user,
+    [`${endpoint}/api/user/by-id/${id}`]: user,
+
 }

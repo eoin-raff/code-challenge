@@ -7,13 +7,13 @@ export const getUsers: GetUsers = async (API_ENDPOINT = LEGO_ENDPOINT) => {
         const response = await fetch(`${API_ENDPOINT}/api/users`)
         return response.json()
     } catch (error) {
-        console.warn('Error getting users')
+        console.warn('Error getting users', error)
         return { Users: [] }
     }
 }
 
 //returns a summary of a single user
-export const getUsersByUsername: GetData<User> = async (username, API_ENDPOINT = LEGO_ENDPOINT) => {
+export const getUserByUsername: GetData<User> = async (username, API_ENDPOINT = LEGO_ENDPOINT) => {
     try {
         const response = await fetch(`${API_ENDPOINT}/api/user/by-username/${username}`)
         return response.json()
@@ -25,8 +25,14 @@ export const getUsersByUsername: GetData<User> = async (username, API_ENDPOINT =
 }
 
 // return the full data for a single user
-export const getUsersByID = async (id: string, API_ENDPOINT = LEGO_ENDPOINT) => {
-    return fetch(`${API_ENDPOINT}/api/user/by-id/${id}`)
+export const getUserById = async (id: string, API_ENDPOINT = LEGO_ENDPOINT) => {
+    try {
+        const response = await fetch(`${API_ENDPOINT}/api/user/by-id/${id}`)
+        return response.json()
+    } catch (error) {
+        console.warn('Error getting user with id ', id)
+        return {}
+    }
 }
 
 // returns a list of the sets in the catalogue
