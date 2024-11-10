@@ -1,14 +1,16 @@
+import { SetData, SetSummary, UserData, UserSummary } from "./types"
+
 //#region User Mocks
 export const username = 'brickfan35'
 export const userId = '6d6bc9f2-a762-4a30-8d9a-52cf8d8373fc'
 
-export const userSummary = {
+export const userSummary: UserSummary = {
     "id": userId,
     "username": username,
     "location": "UKY",
     "brickCount": 1413
 }
-export const user = {
+export const user: UserData = {
     ...userSummary,
     "collection": [
         {
@@ -997,7 +999,7 @@ export const user = {
         }
     ]
 }
-export const userArray = {
+export const userArray: { "Users": Array<UserSummary> } = {
     "Users": [
         userSummary,
         {
@@ -1067,13 +1069,13 @@ export const userArray = {
 //#region Set Mocks
 export const setName = 'alien-spaceship'
 export const setId = '040f11ab-e301-4724-bacd-50841816e06b'
-export const setSummary = {
+export const setSummary: SetSummary = {
     "id": setId,
     "name": setName,
     "setNumber": "497XX",
     "totalPieces": 1050
 }
-export const set = {
+export const set: SetData = {
     "id": "040f11ab-e301-4724-bacd-50841816e06b",
     "name": "alien-spaceship",
     "setNumber": "497XX",
@@ -2041,7 +2043,7 @@ export const set = {
     ],
     "totalPieces": 1050
 }
-export const sets = {
+export const sets: { "Sets": Array<SetSummary> } = {
     "Sets": [
         setSummary,
         {

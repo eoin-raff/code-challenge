@@ -1,4 +1,4 @@
-import { UserSummary, GetUsers, GetData, User } from '../types'
+import { UserSummary, GetUsers, GetData, UserData } from '../../types'
 
 const PROD_ENDPOINT = `https://d16m5wbro86fg2.cloudfront.net`
 
@@ -22,7 +22,7 @@ export const getUserByUsername: GetData<UserSummary> = async (username, API_ENDP
 }
 
 // return the full data for a single user
-export const getUserById: GetData<User> = async (id: string, API_ENDPOINT = PROD_ENDPOINT) => {
+export const getUserById: GetData<UserData> = async (id: string, API_ENDPOINT = PROD_ENDPOINT) => {
     return getDataFromApi(`${API_ENDPOINT}/api/user/by-id/${id}`)
 }
 

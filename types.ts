@@ -1,17 +1,17 @@
-type Location = "ADL" |
-    "BJX" |
-    "BJX" |
-    "CYR" |
-    "FIH" |
-    "SUB" |
-    "UKY"
+// export type UserLocation = "ADL" |
+//     "BJX" |
+//     "BJX" |
+//     "CYR" |
+//     "FIH" |
+//     "SUB" |
+//     "UKY"
 
 type BrickVariant = {
     color: string
     count: number
 }
 
-type Brick = {
+export type Brick = {
     pieceId: string
     variants: Array<BrickVariant>
 }
@@ -19,10 +19,10 @@ type Brick = {
 export type UserSummary = {
     id: string,
     username: string,
-    location: Location,
+    location: string,
     brickCount: number
 }
-export type User = UserSummary & {
+export type UserData = UserSummary & {
     collection: Array<Brick>
 }
 
@@ -33,16 +33,16 @@ export type SetSummary = {
     totalPieces: number
 }
 
-type Part = {
+export type Part = {
     designID: string,
-    material: 5,
-    partType: "rigid" //currently rigid is the only part type
+    material: number,
+    partType: string 
 }
-type Piece = {
+export type Piece = {
     part: Part
     quantity: number
 }
-export type Set = SetSummary & {
+export type SetData = SetSummary & {
     pieces: Array<Piece>
 }
 export type Colour = {

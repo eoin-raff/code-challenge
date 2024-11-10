@@ -1,4 +1,4 @@
-import * as API from '../src/api'
+import * as API from '../src/utils/api'
 import * as Mock from '../mocks'
 
 global.fetch = jest.fn((url: string) =>
