@@ -1,13 +1,18 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { UserData } from '../types'
 import './App.css'
+import LoginForm from './components/LoginForm'
+import UserDisplay from './components/UserDisplay'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [user, setUser] = useState<UserData | undefined>(undefined)
 
   return (
-    <h1>Hello World</h1>
+    <>
+      {user ? <UserDisplay user={user} /> : <LoginForm setUser={setUser} />}
+    </>
+
   )
 }
 

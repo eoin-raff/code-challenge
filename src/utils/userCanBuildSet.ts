@@ -1,14 +1,14 @@
-import Set from "../classes/set"
+import { SetData } from "../../types"
 import User from "../classes/user"
 
-const userCanBuildSet = (user: User, set: Set): boolean => {
+const userCanBuildSet = (user: User, set: SetData): boolean => {
 
     /**
      * before doing an expensive search, check how many pieces the user has.
      * If they have fewer pieces than the set requires, then they definitely can't build it
      */
 
-    if (set._totalPieces > user._brickCount) return false
+    if (set.totalPieces > user._brickCount) return false
 
     /**
      * if there are enough pieces, then find out if they have the right pieces, and the right quantity of each
