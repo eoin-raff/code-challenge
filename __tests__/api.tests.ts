@@ -1,13 +1,12 @@
 import * as API from '../src/api'
 import * as Mock from '../mocks'
-/**
- * We don't want to actually test the api - just test that the methods fetch with the correct parameters
- */
+
 global.fetch = jest.fn((url: string) =>
     Promise.resolve({
         json: () => Promise.resolve(Mock.API[url]),
     }),
 ) as jest.Mock;
+
 describe('API Methods fetch correct data', () => {
     test('getUsers', async () => {
         const users = await API.getUsers(Mock.endpoint)
@@ -15,7 +14,7 @@ describe('API Methods fetch correct data', () => {
     })
     test('getUsersByUsername', async () => {
         const user = await API.getUserByUsername(Mock.username, Mock.endpoint)
-        expect(user).toEqual(Mock.user)
+        expect(user).toEqual(Mock.userSummary)
     })
     test('getUsersById', async () => {
         const user = await API.getUserById(Mock.userId, Mock.endpoint)
@@ -24,5 +23,17 @@ describe('API Methods fetch correct data', () => {
     test('getSets', async () => {
         const sets = await API.getSets(Mock.endpoint)
         expect(sets).toEqual(Mock.sets)
+    })
+    test('getSetByName', async () => {
+        const sets = await API.getSetByName(Mock.setName, Mock.endpoint)
+        expect(sets).toEqual(Mock.setSummary)
+    })
+    test('getSetById', async () => {
+        const sets = await API.getSetById(Mock.setId, Mock.endpoint)
+        expect(sets).toEqual(Mock.set)
+    })
+    test('getColours', async () => {
+        const sets = await API.getColours(Mock.endpoint)
+        expect(sets).toEqual(Mock.colours)
     })
 })

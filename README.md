@@ -1,50 +1,23 @@
-# React + TypeScript + Vite
+# LEGO Code Challenge
+> This repository is my attempt at the code challenge for The LEGO Group.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Setup
+This Application consists of a React frontend and a simple typescript backend.
 
-Currently, two official plugins are available:
+To setup, you will need Node installed. Clone the repo, and run the following commands:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install
+npm run start
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## The Answer to the Question.
+The purpose of the app is to answer the question:
+> Which sets can the user brickfan35 build with their exisiting inventory of pieces? 
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+<details>
+<summary>Expand to see the answer</summary>
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+I don't have the answer yet, this is just a placeholder
+
+</details>
