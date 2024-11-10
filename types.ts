@@ -6,7 +6,7 @@
 //     "SUB" |
 //     "UKY"
 
-type BrickVariant = {
+export type BrickVariant = {
     color: string
     count: number
 }

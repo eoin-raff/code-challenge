@@ -9,7 +9,21 @@ const userCanBuildSet = (user: User, set: Set): boolean => {
      */
 
     if (set._totalPieces > user._brickCount) return false
-    
+
+    /**
+     * if there are enough pieces, then find out if they have the right pieces, and the right quantity of each
+     */
+
+    const missingPieces = []
+    set.pieces.forEach((piece) => {
+        const userHasPiece = user.hasPiece(piece)
+        if (!userHasPiece) {
+            missingPieces.push(piece)
+        }
+    })
+
+    if (missingPieces.length > 0) return false
+
     return true
 }
 

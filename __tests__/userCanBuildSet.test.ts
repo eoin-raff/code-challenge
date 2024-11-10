@@ -10,4 +10,10 @@ describe('userCanBuildSet', () => {
         const result = userCanBuildSet(testUser, testSet)
         expect(result).toBe(false)
     })
+    test('returns false if the user has no bricks', ()=>{
+        expect(true).toBe(false)
+    })
+    test('returns false if the user is missing a required brick', ()=>{
+        expect(true).toBe(false)
+    })
 })
