@@ -22,7 +22,7 @@ describe('API Methods fetch correct data', () => {
     })
     test('getSets', async () => {
         const sets = await API.getSets(Mock.endpoint)
-        expect(sets).toEqual(Mock.sets)
+        expect(sets).toEqual(Mock.setSummaryList)
     })
     test('getSetByName', async () => {
         const sets = await API.getSetByName(Mock.setName, Mock.endpoint)

@@ -1,4 +1,4 @@
-import { UserSummary, GetUsers, GetData, UserData } from '../../types'
+import { UserSummary, GetUsers, GetData, UserData, GetSets, SetSummary, SetData } from '../../types'
 
 const PROD_ENDPOINT = `https://d16m5wbro86fg2.cloudfront.net`
 
@@ -27,15 +27,15 @@ export const getUserById: GetData<UserData> = async (id: string, API_ENDPOINT = 
 }
 
 // returns a list of the sets in the catalogue
-export const getSets = async (API_ENDPOINT = PROD_ENDPOINT) => {
+export const getSets: GetSets = async (API_ENDPOINT = PROD_ENDPOINT) => {
     return getDataFromApi(`${API_ENDPOINT}/api/sets`)
 }
 //returns a summary of a single set
-export const getSetByName = async (name: string, API_ENDPOINT = PROD_ENDPOINT) => {
+export const getSetByName: GetData<SetSummary> = async (name: string, API_ENDPOINT = PROD_ENDPOINT) => {
     return getDataFromApi(`${API_ENDPOINT}/api/set/by-name/${name}`)
 }
 // returns the full data for a single set
-export const getSetById = async (id: string, API_ENDPOINT = PROD_ENDPOINT) => {
+export const getSetById: GetData<SetData> = async (id: string, API_ENDPOINT = PROD_ENDPOINT) => {
     return getDataFromApi(`${API_ENDPOINT}/api/set/by-id/${id}`)
 }
 

@@ -36,7 +36,7 @@ export type SetSummary = {
 export type Part = {
     designID: string,
     material: number,
-    partType: string 
+    partType: string
 }
 export type Piece = {
     part: Part
@@ -52,5 +52,13 @@ export type Colour = {
 export type GetUsers = (API_ENDPOINT?: string) => Promise<{
     Users: Array<UserSummary>
 }>
+export type GetSets = (API_ENDPOINT?: string) => Promise<{
+    Sets: Array<SetSummary>
+}>
 
-export type GetData<T> = (identifier: string, API_ENDPOINT: string) => Promise<T>
+export type GetData<T> = (identifier: string, API_ENDPOINT?: string) => Promise<T>
+
+export interface GetSetsAPI {
+    getSets: GetSets
+    getSetById: GetData<SetData>
+}

@@ -2043,7 +2043,7 @@ export const set: SetData = {
     ],
     "totalPieces": 1050
 }
-export const sets: { "Sets": Array<SetSummary> } = {
+export const setSummaryList: { "Sets": Array<SetSummary> } = {
     "Sets": [
         setSummary,
         {
@@ -2441,7 +2441,7 @@ export const API = {
     [`${endpoint}/api/users`]: userArray,
     [`${endpoint}/api/user/by-username/${username}`]: userSummary,
     [`${endpoint}/api/user/by-id/${userId}`]: user,
-    [`${endpoint}/api/sets`]: sets,
+    [`${endpoint}/api/sets`]: setSummaryList,
     [`${endpoint}/api/set/by-name/${setName}`]: setSummary,
     [`${endpoint}/api/set/by-id/${setId}`]: set,
     [`${endpoint}/api/colours`]: colours,
