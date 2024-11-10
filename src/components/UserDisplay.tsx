@@ -15,7 +15,7 @@ const UserDisplay = ({ user }: UserDisplayProps) => {
             <h1>Welcome {username}</h1>
             <p>You have {brickCount} pieces!</p>
             <SetsOverview user={currentUser} />
-            <pre>{JSON.stringify(user, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
         </>
     )
 }

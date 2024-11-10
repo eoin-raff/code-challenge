@@ -10,6 +10,7 @@ interface SetsOverviewProps {
 const SetsOverview = ({ user
 }: SetsOverviewProps) => {
     const [sets, setSets] = useState<Array<SetData> | undefined>(undefined)
+    const [buildableSets, setBuildableSets] = useState<Array<SetData> | undefined>(undefined)
     useEffect(() => {
         (async () => {
             const allSetDetails = await getAllSetDetails()
@@ -17,16 +18,18 @@ const SetsOverview = ({ user
         })()
     }, [])
 
+    const handleClick = () => {
+        const buildableSets = sets?.filter(set => userCanBuildSet(user, set))
+        setBuildableSets(buildableSets)
+    }
     return (
         <>
-            <div>SetDisplay</div>
-            {sets && sets.map((set) => {
-                const canBuild = userCanBuildSet(user, set)
-                return <div key={set.id}>
-                    <p>{set.name}</p>
-                    {canBuild ? <p color='green'>you can build this set!</p> : <p color='red'>sorry, you're missing pieces</p>}
-                </div>
-            })}
+            {buildableSets && buildableSets.length > 0 && <>
+                <h2>You can build these sets with your current pieces:</h2>
+
+                {buildableSets.map(set => <p>{set.name}</p>)}
+            </>}
+            {sets ? <button onClick={handleClick}>What sets can I build?</button> : <p>sets are loading...</p>}
         </>
     )
 }

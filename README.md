@@ -18,6 +18,9 @@ The purpose of the app is to answer the question:
 <details>
 <summary>Expand to see the answer</summary>
 
-I don't have the answer yet, this is just a placeholder
+brickfan35 can currently build the following sets:
+- car-wash
+- castaway
+- undersea-monster
 
 </details>
