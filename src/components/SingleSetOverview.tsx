@@ -31,6 +31,10 @@ const SingleSetOverview = ({ set }: SingleSetOverviewProps) => {
         }
     }, [user, set, canBuildSet])
 
+    const userLookup = async () => { 
+        
+    }
+
     return (
         <div>
             SingleSetOverview
@@ -43,6 +47,8 @@ const SingleSetOverview = ({ set }: SingleSetOverviewProps) => {
                 {missingPieces.map(({ part: { designID, material }, quantity }, i) => {
                     return <p key={i}> {quantity} x brick#{designID} in {material}</p>
                 })}</>}
+            <p>Find user who can help?</p>
+            <button>Find Users</button>
         </div >
     )
 }
