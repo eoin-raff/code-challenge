@@ -4,6 +4,7 @@ import { UserData } from '../../types'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { AuthContext } from '../context/AuthContext'
 import User from '../classes/user'
+import { Box, Button, Container, TextField, Typography } from '@mui/material'
 
 type Inputs = {
     username: string
@@ -40,6 +41,7 @@ const LoginForm = ({ setUser }: LoginFormProps) => {
             } catch (error) {
                 setApiError('Error finding user')
                 setIsLoading(false)
+
             }
         })()
 
@@ -49,20 +51,20 @@ const LoginForm = ({ setUser }: LoginFormProps) => {
 
     return (
         /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-        <>
-            <h1>Enter Username to log in</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <label>
-                    <p>Username:</p>
-                    {/* include validation with required or other standard HTML validation rules */}
-                    <input {...register("username", { required: true })} />
-                    {/* errors will return when field validation fails  */}
-                    {errors.username && <span>This field is required</span>}
-                </label>
-                <button type="submit">Log In</button>
-            </form>
-            {apiError && <p>{apiError}</p>}
-        </>
+        <Box flexDirection={'column'}>
+            <Container>
+                <Box display={'flex'} flexDirection={'column'}>
+                    <Box display={'flex'} gap={2} flexDirection={'column'} component={'form'} onSubmit={handleSubmit(onSubmit)}>
+                        {/* include validation with required or other standard HTML validation rules */}
+                        <TextField id="outlined-basic" label="Username" variant="outlined" {...register("username", { required: true })} />
+                        {/* errors will return when field validation fails  */}
+                        <Button type="submit" variant='contained'>Log In</Button>
+                    </Box>
+                    {errors.username && <Typography variant='subtitle1' color='error'>Username is required</Typography>}
+                    {apiError && <Typography variant='subtitle1' color='error'>{apiError}</Typography>}
+                </Box>
+            </Container>
+        </Box>
     )
 }
 
