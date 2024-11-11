@@ -12,15 +12,26 @@ npm run start
 ```
 
 ## The Answer to the Question.
-The purpose of the app is to answer the question:
-> Which sets can the user brickfan35 build with their exisiting inventory of pieces? 
+Which sets can the user `brickfan35` build with their exisiting inventory of pieces? 
 
 <details>
 <summary>Expand to see the answer</summary>
 
-brickfan35 can currently build the following sets:
+`brickfan35` can build the following sets with their current collection:
 - car-wash
 - castaway
 - undersea-monster
+
+</details>
+
+### Stretch Goal 1
+The user `landscape-artist` doesn't have the right pieces to build the set `tropical-island` but would like to collaborate with other users on the build. Which users could they combine their collection with to have the complete piece requirements for the build? 
+
+<details>
+<summary>Expand to see the answer</summary>
+
+`landscape-artist` can combine their collection with the following users to build the `tropical-island` set: 
+
+- `spaceman77`
 
 </details>

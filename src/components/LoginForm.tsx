@@ -40,7 +40,6 @@ const LoginForm = ({ setUser }: LoginFormProps) => {
             } catch (error) {
                 setApiError('Error finding user')
                 setIsLoading(false)
-
             }
         })()
 

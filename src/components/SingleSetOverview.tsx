@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Piece, SetData } from '../../types'
+import { Piece, SetData, UserData } from '../../types'
 import { AuthContext } from '../context/AuthContext'
 import userCanBuildSet from '../utils/userCanBuildSet'
 import convertBricksToPieces from '../utils/convertBricksToPieces'
 import compareUserPiecesToSet from '../utils/compareUserPiecesToSet'
 import { get } from 'react-hook-form'
 import getPiecesUserIsMissingForSet from '../utils/getPiecesUserIsMissingForSet'
+import findUsersWithPieces from '../utils/findUsersWithPieces'
 
 interface SingleSetOverviewProps {
     set: SetData
@@ -16,6 +17,10 @@ const SingleSetOverview = ({ set }: SingleSetOverviewProps) => {
 
     const [canBuildSet, setCanBuildSet] = useState(false)
     const [missingPieces, setMissingPieces] = useState<Piece[]>([])
+    const [helpfulUsers, setHelpfulUsers] = useState<UserData[]>([])
+
+    const [isLoading, setIsLoading] = useState(false)
+    const [apiError, setApiError] = useState('')
 
     useEffect(() => {
         if (!user) return
@@ -31,8 +36,14 @@ const SingleSetOverview = ({ set }: SingleSetOverviewProps) => {
         }
     }, [user, set, canBuildSet])
 
-    const userLookup = async () => { 
-        
+    const userLookup = async () => {
+        console.log('lookup!')
+        if (isLoading || !missingPieces || missingPieces.length === 0) return
+        setIsLoading(true)
+
+        const canHelp = await findUsersWithPieces(missingPieces)
+        setHelpfulUsers(canHelp)
+
     }
 
     return (
@@ -48,7 +59,9 @@ const SingleSetOverview = ({ set }: SingleSetOverviewProps) => {
                     return <p key={i}> {quantity} x brick#{designID} in {material}</p>
                 })}</>}
             <p>Find user who can help?</p>
-            <button>Find Users</button>
+            <button onClick={async () => await userLookup()}>Find Users</button>
+            {helpfulUsers.length > 0 && <>
+                {helpfulUsers.map(user => <p key={user.id}>{user.username}</p>)}</>}
         </div >
     )
 }
