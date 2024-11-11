@@ -2,15 +2,18 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { getUserById, getUserByUsername } from '../utils/api'
 import { UserData } from '../../types'
 import { useForm, SubmitHandler } from "react-hook-form"
+import { AuthContext } from '../context/AuthContext'
+import User from '../classes/user'
 
 type Inputs = {
     username: string
 }
 
 interface LoginFormProps {
-    setUser: Dispatch<SetStateAction<UserData | undefined>>
+    setUser: Dispatch<SetStateAction<User | undefined>>
 }
 const LoginForm = ({ setUser }: LoginFormProps) => {
+
     const [username, setUsername] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [apiError, setApiError] = useState('')
@@ -32,7 +35,7 @@ const LoginForm = ({ setUser }: LoginFormProps) => {
             try {
                 const { id } = await getUserByUsername(username)
                 const user = await getUserById(id)
-                setUser(user)
+                setUser(new User(user))
                 setIsLoading(false)
             } catch (error) {
                 setApiError('Error finding user')

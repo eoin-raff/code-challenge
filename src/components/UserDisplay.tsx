@@ -4,7 +4,7 @@ import SetsOverview from './SetDisplay'
 import User from '../classes/user'
 
 interface UserDisplayProps {
-    user: UserData
+    user: User
 }
 
 const UserDisplay = ({ user }: UserDisplayProps) => {
