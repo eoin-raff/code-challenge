@@ -1,6 +1,7 @@
 import { UserData, Brick, SetData, SetSummary, Piece, BrickVariant } from '../../types'
 import convertBricksToPieces from '../utils/convertBricksToPieces'
 import getAllUserDetails from '../utils/getAllUserDetails'
+import userCanBuildSet from '../utils/userCanBuildSet'
 export default class User {
     private _id: string
     private _username: string
@@ -38,6 +39,9 @@ export default class User {
 
         return true
     }
+    canBuildSet = (set: SetData) => {
+        return userCanBuildSet(this, set)
+    }
     getMyCollectionAndOtherCollectionsAsPieces = async (): Promise<[Piece[], Piece[][]]> => {
         const details = await getAllUserDetails()
 
@@ -55,6 +59,7 @@ export default class User {
         return [myCollection, otherUsersCollections]
     }
 
+
     private _getMatchingPieceFromCollection = (id: string): Brick | undefined => {
         const matchingPiece = this._collection.find(({ pieceId }) => {
             return pieceId === id
@@ -68,5 +73,7 @@ export default class User {
         })
         return matchingVariant
     }
+
+
 
 }

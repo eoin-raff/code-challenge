@@ -1,7 +1,9 @@
-import { SetData } from "../../types"
+import { Piece, SetData } from "../../types"
 import User from "../classes/user"
 
-const userCanBuildSet = (user: User, set: SetData): boolean => {
+export type MissingPiecesCallback = ((set: SetData, missingPieces: Piece[]) => void) | undefined
+
+const userCanBuildSet = (user: User, set: SetData, handleMissingPieces: MissingPiecesCallback = undefined): boolean => {
 
     /**
      * before doing an expensive search, check how many pieces the user has.
@@ -14,7 +16,7 @@ const userCanBuildSet = (user: User, set: SetData): boolean => {
      * if there are enough pieces, then find out if they have the right pieces, and the right quantity of each
      */
 
-    const missingPieces = []
+    const missingPieces: Piece[] = []
     set.pieces.forEach((piece) => {
         const userHasPiece = user.hasPiece(piece)
         if (!userHasPiece) {
@@ -22,7 +24,10 @@ const userCanBuildSet = (user: User, set: SetData): boolean => {
         }
     })
 
-    if (missingPieces.length > 0) return false
+    if (missingPieces.length > 0) {
+        if (handleMissingPieces) handleMissingPieces(set, missingPieces)
+        return false
+    }
 
     return true
 }

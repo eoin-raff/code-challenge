@@ -13,17 +13,20 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import SetLookup from './components/SetLookup'
 import SingleSetOverview from './components/SingleSetOverview'
+import ColorSwap from './components/ColorSwap'
 
-type TabId = 'USER' | 'SETS' | 'CUSTOM'
+type TabId = 'USER' | 'SETS' | 'CUSTOM' | 'COLOR_SWAP'
 const tabLabels: Record<TabId, string> = {
   USER: 'User Overview',
   SETS: 'Set Overview',
-  CUSTOM: 'Custom Sets'
+  CUSTOM: 'Custom Sets',
+  COLOR_SWAP: 'Color Swap'
 }
 const tabComponents: Record<TabId, FC> = {
   USER: () => <UserDisplay />,
   SETS: () => <SingleSetOverview />,
-  CUSTOM: () => <CustomBuild />
+  CUSTOM: () => <CustomBuild />,
+  COLOR_SWAP: () => <ColorSwap />
 }
 
 function App() {
@@ -57,7 +60,7 @@ function App() {
           </Box>
 
           <Box sx={{ gridArea: 'main' }}>
-            {user &&<TabContext value={activeTab}>
+            {user && <TabContext value={activeTab}>
               <TabList onChange={handleTabChange}>
                 {Object.keys(tabLabels).map(key => <Tab label={tabLabels[key as TabId]} value={key} />)}
               </TabList>
