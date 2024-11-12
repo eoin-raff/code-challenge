@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
 import { getUserById, getUserByUsername } from '../utils/api'
 import { UserData } from '../../types'
 import { useForm, SubmitHandler } from "react-hook-form"
@@ -14,6 +14,7 @@ interface LoginFormProps {
     setUser: Dispatch<SetStateAction<User | undefined>>
 }
 const LoginForm = ({ setUser }: LoginFormProps) => {
+    const user = useContext(AuthContext)
 
     const [username, setUsername] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -47,8 +48,6 @@ const LoginForm = ({ setUser }: LoginFormProps) => {
 
 
     }, [username])
-
-
     return (
         /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
         <Box flexDirection={'column'}>
