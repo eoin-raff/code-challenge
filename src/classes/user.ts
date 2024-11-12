@@ -1,10 +1,10 @@
 import { UserData, Brick, SetData, SetSummary, Piece, BrickVariant } from '../../types'
 export default class User {
-    _id: string
-    _username: string
-    _location: string
-    _brickCount: number
-    _collection: Array<Brick>
+    private _id: string
+    private _username: string
+    private _location: string
+    private _brickCount: number
+    private _collection: Array<Brick>
 
     constructor({ id, username, location, brickCount, collection }: UserData) {
         this._id = id
@@ -37,19 +37,18 @@ export default class User {
         return true
     }
 
-    _getMatchingPieceFromCollection = (id: string): Brick | undefined => {
+    private _getMatchingPieceFromCollection = (id: string): Brick | undefined => {
         const matchingPiece = this._collection.find(({ pieceId }) => {
             return pieceId === id
         })
         return matchingPiece
     }
-    _getMatchingVariant = ({ variants }: Brick, material: number): BrickVariant | undefined => {
+    private _getMatchingVariant = ({ variants }: Brick, material: number): BrickVariant | undefined => {
         const matchingVariant = variants.find(({ color }) => {
             return material.toString() === color
 
         })
         return matchingVariant
     }
-    _collectionHasPieceVariantInSufficientQuantity = (id: string, material: number, quantity: number): boolean => { return true }
 
 }

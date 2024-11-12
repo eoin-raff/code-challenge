@@ -51,7 +51,7 @@ const LoginForm = ({ setUser }: LoginFormProps) => {
     return (
         /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
         <Box flexDirection={'column'}>
-            <Container>
+            <Container maxWidth='md'>
                 <Box display={'flex'} flexDirection={'column'}>
                     <Box display={'flex'} gap={2} flexDirection={'column'} component={'form'} onSubmit={handleSubmit(onSubmit)}>
                         {/* include validation with required or other standard HTML validation rules */}
