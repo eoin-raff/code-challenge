@@ -79,9 +79,13 @@ export default class User {
             return this.hasPieceInDifferentColour(piece)
         })
 
+
+        const usedColorsFiltered = alternativePieces.map(alternatives => alternatives.filter(altPiece => setContainsColor(set, altPiece)))
         //if any pieces have no alternatives, then you can't color swap
-        const filteredAlts = alternativePieces.filter(alternatives => alternatives.length > 0)
-        if (alternativePieces.length !== filteredAlts.length) return false
+        const noAltsFiltered = usedColorsFiltered.filter(alternatives => alternatives.length > 0)
+        if (alternativePieces.length !== noAltsFiltered.length) return false
+
+        const altsSortedByLength = alternativePieces.sort((a, b) => a.length - b.length)
 
         return true
 
@@ -105,3 +109,5 @@ export default class User {
 
 
 }
+
+
