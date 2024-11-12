@@ -62,3 +62,7 @@ export interface GetSetsAPI {
     getSets: GetSets
     getSetById: GetData<SetData>
 }
+export interface GetUsersAPI {
+    getUsers: GetUsers
+    getUserById: GetData<UserData>
+}

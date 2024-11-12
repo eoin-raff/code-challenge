@@ -1,4 +1,6 @@
 import { UserData, Brick, SetData, SetSummary, Piece, BrickVariant } from '../../types'
+import convertBricksToPieces from '../utils/convertBricksToPieces'
+import getAllUserDetails from '../utils/getAllUserDetails'
 export default class User {
     private _id: string
     private _username: string
@@ -35,6 +37,22 @@ export default class User {
         //TODO: Strech goal - what colors does the user have that they could replace the piece with?
 
         return true
+    }
+    getMyCollectionAndOtherCollectionsAsPieces = async (user: User | UserData): Promise<[Piece[], Piece[][]]> => {
+        const details = await getAllUserDetails()
+
+        const initial: Brick[][] = []
+        const allCollections: Brick[][] = details.reduce((accumulator, currentDetails) => {
+            //skip the current user
+            if (currentDetails.id === user.id) return accumulator
+            return [...accumulator, currentDetails.collection]
+        }, initial)
+
+
+        //pieces are easier to compare than bricks, so convert both userCollection and allUsersCollections to pieces
+        const myCollection = convertBricksToPieces(user.collection)
+        const otherUsersCollections = allCollections.map(collection => convertBricksToPieces(collection))
+        return [myCollection, otherUsersCollections]
     }
 
     private _getMatchingPieceFromCollection = (id: string): Brick | undefined => {

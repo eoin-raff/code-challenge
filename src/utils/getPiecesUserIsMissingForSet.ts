@@ -1,5 +1,5 @@
 import { Piece } from "../../types";
-import compareUserPiecesToSet from "./compareUserPiecesToSet";
+import compareUserPieceToSet from "./compareUsersPieceToSet";
 
 const getPiecesUserIsMissingForSet = (usersPieces: Array<Piece>, setsPieces: Array<Piece>): Array<Piece> => {
 
@@ -7,7 +7,7 @@ const getPiecesUserIsMissingForSet = (usersPieces: Array<Piece>, setsPieces: Arr
     const newArray = setsPieces.reduce((accumulator, currentPiece) => {
         let newQuantity = currentPiece.quantity
         const foundPiece = usersPieces.find((userPiece) => {
-            const [isValid, message] = compareUserPiecesToSet(userPiece, currentPiece)
+            const [isValid, message] = compareUserPieceToSet(userPiece, currentPiece)
             if (message === 'InsufficientQuantity') { newQuantity = currentPiece.quantity - userPiece.quantity }
             if (isValid) return userPiece
         })

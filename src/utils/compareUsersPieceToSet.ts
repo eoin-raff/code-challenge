@@ -8,7 +8,7 @@ export type PieceError = 'WrongID' | "WrongColour" | "InsufficientQuantity" | "V
  * @param setPiece The pieces that the set requires
  * @returns true if the user has the same or higher quantity of the piece required by the set
  */
-const compareUserPiecesToSet = (userPiece: Piece, setPiece: Piece): [boolean, PieceError] => {
+const compareUserPieceToSet = (userPiece: Piece, setPiece: Piece): [boolean, PieceError] => {
 
     if (userPiece.part.designID !== setPiece.part.designID) return [false, 'WrongID']
     if (userPiece.part.material !== setPiece.part.material) return [false, 'WrongColour']
@@ -17,4 +17,4 @@ const compareUserPiecesToSet = (userPiece: Piece, setPiece: Piece): [boolean, Pi
     return [true, 'Valid']
 }
 
-export default compareUserPiecesToSet
+export default compareUserPieceToSet
