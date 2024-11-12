@@ -7,13 +7,12 @@ import compareUserPieceToSet from '../utils/compareUsersPieceToSet'
 import { get } from 'react-hook-form'
 import getPiecesUserIsMissingForSet from '../utils/getPiecesUserIsMissingForSet'
 import findUsersWithPieces from '../utils/findUsersWithPieces'
+import SetLookup from './SetLookup'
 
-interface SingleSetOverviewProps {
-    set: SetData
-}
 
-const SingleSetOverview = ({ set }: SingleSetOverviewProps) => {
+const SingleSetOverview = () => {
     const user = useContext(AuthContext)
+    const [currentSet, setCurrentSet] = useState<SetData | undefined>(undefined)
 
     const [canBuildSet, setCanBuildSet] = useState(false)
     const [missingPieces, setMissingPieces] = useState<Piece[]>([])
@@ -23,18 +22,18 @@ const SingleSetOverview = ({ set }: SingleSetOverviewProps) => {
     const [apiError, setApiError] = useState('')
 
     useEffect(() => {
-        if (!user) return
-        setCanBuildSet(userCanBuildSet(user, set))
+        if (!user || !currentSet) return
+        setCanBuildSet(userCanBuildSet(user, currentSet))
 
         if (canBuildSet) return
         const userBricksAsPieces = convertBricksToPieces(user.collection)
-        setMissingPieces(getPiecesUserIsMissingForSet(userBricksAsPieces, set.pieces))
+        setMissingPieces(getPiecesUserIsMissingForSet(userBricksAsPieces, currentSet.pieces))
 
         return () => {
             setCanBuildSet(false)
             setMissingPieces([])
         }
-    }, [user, set, canBuildSet])
+    }, [user, currentSet, canBuildSet])
 
     const userLookup = async () => {
         console.log('lookup!')
@@ -48,20 +47,23 @@ const SingleSetOverview = ({ set }: SingleSetOverviewProps) => {
 
     return (
         <div>
+            <p>Look for a specific set:</p>
+            <SetLookup setSet={setCurrentSet} />
             SingleSetOverview
-            <h2>
-                name: {set.name}
-                pieces: {set.totalPieces}
-            </h2>
-            {missingPieces.length > 0 && <>
-                you need this following pieces:
-                {missingPieces.map(({ part: { designID, material }, quantity }, i) => {
-                    return <p key={i}> {quantity} x brick#{designID} in {material}</p>
-                })}</>}
-            <p>Find user who can help?</p>
-            <button onClick={async () => await userLookup()}>Find Users</button>
-            {helpfulUsers.length > 0 && <>
-                {helpfulUsers.map(user => <p key={user.id}>{user.username}</p>)}</>}
+            {currentSet && <>
+                <h2>
+                    name: {currentSet.name}
+                    pieces: {currentSet.totalPieces}
+                </h2>
+                {missingPieces.length > 0 && <>
+                    you need this following pieces:
+                    {missingPieces.map(({ part: { designID, material }, quantity }, i) => {
+                        return <p key={i}> {quantity} x brick#{designID} in {material}</p>
+                    })}</>}
+                <p>Find user who can help?</p>
+                <button onClick={async () => await userLookup()}>Find Users</button>
+                {helpfulUsers.length > 0 && <>
+                    {helpfulUsers.map(user => <p key={user.id}>{user.username}</p>)}</>}</>}
         </div >
     )
 }

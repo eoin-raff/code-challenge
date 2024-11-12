@@ -11,11 +11,9 @@ const UserDisplay = () => {
     const currentUser = new User(user)
     return (
         <>
-
             <h1>Welcome {username}</h1>
             <p>You have {brickCount} pieces!</p>
 
-            <SetsOverview user={currentUser} />
         </>
     )
 }

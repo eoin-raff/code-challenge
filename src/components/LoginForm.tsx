@@ -1,10 +1,8 @@
-import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { getUserById, getUserByUsername } from '../utils/api'
-import { UserData } from '../../types'
 import { useForm, SubmitHandler } from "react-hook-form"
-import { AuthContext } from '../context/AuthContext'
 import User from '../classes/user'
-import { Box, Button, Container, TextField, Typography } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 
 type Inputs = {
     username: string
@@ -14,7 +12,6 @@ interface LoginFormProps {
     setUser: Dispatch<SetStateAction<User | undefined>>
 }
 const LoginForm = ({ setUser }: LoginFormProps) => {
-    const user = useContext(AuthContext)
 
     const [username, setUsername] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -49,21 +46,18 @@ const LoginForm = ({ setUser }: LoginFormProps) => {
 
     }, [username])
     return (
-        /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-        <Box flexDirection={'column'}>
-            <Container maxWidth='md'>
-                <Box display={'flex'} flexDirection={'column'}>
-                    <Box display={'flex'} gap={2} flexDirection={'column'} component={'form'} onSubmit={handleSubmit(onSubmit)}>
-                        {/* include validation with required or other standard HTML validation rules */}
-                        <TextField id="outlined-basic" label="Username" variant="outlined" {...register("username", { required: true })} />
-                        {/* errors will return when field validation fails  */}
-                        <Button type="submit" variant='contained'>Log In</Button>
-                    </Box>
-                    {errors.username && <Typography variant='subtitle1' color='error'>Username is required</Typography>}
-                    {apiError && <Typography variant='subtitle1' color='error'>{apiError}</Typography>}
-                </Box>
-            </Container>
+
+        <Box display={'flex'} flexDirection={'column'}>
+            <Box display={'flex'} gap={2} flexDirection={'row'} component={'form'} onSubmit={handleSubmit(onSubmit)}>
+                {/* include validation with required or other standard HTML validation rules */}
+                <TextField id="outlined-basic" label="Username" variant="outlined" {...register("username", { required: true })} />
+                {/* errors will return when field validation fails  */}
+                <Button type="submit" variant='contained'>Log In</Button>
+            </Box>
+            {errors.username && <Typography variant='subtitle1' color='error'>Username is required</Typography>}
+            {apiError && <Typography variant='subtitle1' color='error'>{apiError}</Typography>}
         </Box>
+
     )
 }
 
@@ -71,8 +65,4 @@ export default LoginForm
 
 
 
-
-// export default function App() {
-
-//   )
-// }
+//TODO: Fix Layout shift on error messages
