@@ -5,6 +5,7 @@ import userCanBuildSet, { MissingPiecesCallback } from '../utils/userCanBuildSet
 import { Piece, SetData } from '../../types'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
+import { List, ListItem } from '@mui/material'
 
 const ColorSwap = () => {
     const user = useContext(AuthContext)
@@ -13,10 +14,7 @@ const ColorSwap = () => {
 
     const [missingPieces, setMissingPieces] = useState<Record<string, Piece[]>>({})
     const handleMissingPieces: MissingPiecesCallback = (set, pieces) => {
-        console.log('callback')
-        const tmp = { ...missingPieces }
-        tmp[set.name] = pieces
-        setMissingPieces(tmp)
+        setMissingPieces(previous => { return { ...previous, [set.name]: pieces } })
     }
     useEffect(() => {
         if (!user) return
@@ -28,12 +26,29 @@ const ColorSwap = () => {
         })()
     }, [])
     // WIP
+    if (!user) return <></>
     return (
         <Box>
-            <Typography>If don't mind using different colours, you could build the following sets:</Typography>
-            {Object.keys(missingPieces).map(name => {
-                return <Typography>{name}</Typography>
-            })}
+            <Typography variant='h4'>You are missing pieces for {nonBuildableSets.length} sets.</Typography>
+            <Typography variant='h4'>But you might be able to build these sets with different colours:.</Typography>
+            <List>
+                {nonBuildableSets
+                    .filter(set => {
+                        const canColorSwap = user.canColourSwapSet(set)
+                        console.log()
+                    })
+                    .map(set => <ListItem>{set.name}</ListItem>)
+                }
+            </List>
+            {/* {Object.keys(missingPieces).map(name => {
+                return <>
+                    <Typography variant='h6'>{name}</Typography>
+                    {missingPieces[name].map(piece => {
+                        const alternativeColors = user.hasPieceInDifferentColour(piece)
+                        return <Typography>You have enough of this type in {alternativeColors.length} different colors</Typography>
+                    })}
+                </>
+            })} */}
         </Box>
     )
 }

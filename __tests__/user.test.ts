@@ -1,5 +1,6 @@
 import User from '../src/classes/user'
 import { user, set } from '../mocks'
+import { SetData } from '../types'
 
 describe('User', () => {
     test('is constructed correctly', () => {
@@ -117,6 +118,69 @@ describe('User', () => {
 
             expect(userHasPiece).toBe(true)
         })
+    })
+    describe('canColourSwapSet()', () => {
+        test('should return false if the user can already build it', () => {
+            const testUser = new User({
+                ...user, collection: [
+                    { pieceId: 'a', variants: [{ color: '1', count: 5 }, { color: '2', count: 5 }] },
+                ]
+            })
+            const testSet: SetData = {
+                name: 'testset',
+                id: 'abc123',
+                setNumber: '1',
+                totalPieces: 5,
+                pieces: [
+                    { part: { designID: 'a', material: 1, partType: 'rigid' }, quantity: 5 }]
+            }
+
+            expect(testUser.canColourSwapSet(testSet)).toBe(false)
+        })
+        test('should return false if there is a piece the user does not have enough of in another color', () => {
+            const testUser = new User({
+                ...user, collection: [
+                    {
+                        pieceId: 'a', variants: [
+                            { color: '1', count: 5 },
+                            // { color: '2', count: 5 }
+                        ]
+                    },
+                ]
+            })
+            const testSet: SetData = {
+                name: 'testset',
+                id: 'abc123',
+                setNumber: '1',
+                totalPieces: 5,
+                pieces: [
+                    { part: { designID: 'a', material: 1, partType: 'rigid' }, quantity: 5 },
+                    { part: { designID: 'b', material: 2, partType: 'rigid' }, quantity: 5 }
+                ]
+            }
+
+            expect(testUser.canColourSwapSet(testSet)).toBe(false)
+        })
+        test('should return true if user has enough of the same pieces in a different colour', () => {
+            const testUser = new User({
+                ...user, collection: [
+                    { pieceId: 'a', variants: [{ color: '2', count: 5 }] },
+
+                ]
+            })
+            const testSet: SetData = {
+                name: 'testset',
+                id: 'abc123',
+                setNumber: '1',
+                totalPieces: 5,
+                pieces: [
+                    { part: { designID: 'a', material: 1, partType: 'rigid' }, quantity: 5 },
+                ]
+            }
+
+            expect(testUser.canColourSwapSet(testSet)).toBe(true)
+        })
+
     })
 
 })

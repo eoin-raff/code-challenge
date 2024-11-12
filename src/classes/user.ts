@@ -3,6 +3,7 @@ import convertBricksToPieces from '../utils/convertBricksToPieces'
 import getAllUserDetails from '../utils/getAllUserDetails'
 import userCanBuildSet from '../utils/userCanBuildSet'
 export default class User {
+
     private _id: string
     private _username: string
     private _location: string
@@ -35,9 +36,19 @@ export default class User {
         //does the user have enough of the brick in that color?
         if (matchingVariant.count < quantity) return false
 
-        //TODO: Strech goal - what colors does the user have that they could replace the piece with?
-
         return true
+    }
+    hasPieceInDifferentColour({ part: { designID, material }, quantity }: Piece): Piece[] {
+        // does the user's collection contain the correct type of brick?
+        const matchingBrick = this._getMatchingPieceFromCollection(designID)
+        if (!matchingBrick) return []
+
+        const pieces = convertBricksToPieces([matchingBrick])
+
+        //return al l pieces with sufficient quantity regardless of colour
+        const filteredPieces = pieces.filter((myPiece) => { return myPiece.quantity >= quantity })
+        return filteredPieces
+
     }
     canBuildSet = (set: SetData) => {
         return userCanBuildSet(this, set)
@@ -57,6 +68,23 @@ export default class User {
         const myCollection = convertBricksToPieces(this.collection)
         const otherUsersCollections = allCollections.map(collection => convertBricksToPieces(collection))
         return [myCollection, otherUsersCollections]
+    }
+    canColourSwapSet = (set: SetData) => {
+        let missingPieces: Piece[] = []
+        const canBuild = userCanBuildSet(this, set, (_set, pieces) => missingPieces = [...pieces])
+        if (canBuild || missingPieces.length === 0) return false //no need to colour swap if you can build it already
+
+        //map through the missing pieces, and see if you have it in another color, with sufficient quantity
+        const alternativePieces = missingPieces.map(piece => {
+            return this.hasPieceInDifferentColour(piece)
+        })
+
+        //if any pieces have no alternatives, then you can't color swap
+        const filteredAlts = alternativePieces.filter(alternatives => alternatives.length > 0)
+        if (alternativePieces.length !== filteredAlts.length) return false
+
+        return true
+
     }
 
 
