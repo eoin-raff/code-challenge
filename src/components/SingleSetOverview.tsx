@@ -36,7 +36,6 @@ const SingleSetOverview = () => {
     }, [user, currentSet, canBuildSet])
 
     const userLookup = async () => {
-        console.log('lookup!')
         if (isLoading || !missingPieces || missingPieces.length === 0) return
         setIsLoading(true)
 

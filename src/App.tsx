@@ -62,11 +62,11 @@ function App() {
           <Box sx={{ gridArea: 'main' }}>
             {user && <TabContext value={activeTab}>
               <TabList onChange={handleTabChange}>
-                {Object.keys(tabLabels).map(key => <Tab label={tabLabels[key as TabId]} value={key} />)}
+                {Object.keys(tabLabels).map(key => <Tab key={key} label={tabLabels[key as TabId]} value={key} />)}
               </TabList>
               {Object.keys(tabComponents).map(key => {
                 const Component = tabComponents[key as TabId]
-                return <TabPanel value={key}><Component /></TabPanel>
+                return <TabPanel key={key} value={key}><Component /></TabPanel>
               })}
             </TabContext>}
           </Box>

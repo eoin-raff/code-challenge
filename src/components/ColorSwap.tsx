@@ -30,14 +30,16 @@ const ColorSwap = () => {
     return (
         <Box>
             <Typography variant='h4'>You are missing pieces for {nonBuildableSets.length} sets.</Typography>
+            <List>
+                {nonBuildableSets
+                    .map(set => <ListItem key={set.id}>{set.name}</ListItem>)
+                }
+            </List>
             <Typography variant='h4'>But you might be able to build these sets with different colours:.</Typography>
             <List>
                 {nonBuildableSets
-                    .filter(set => {
-                        const canColorSwap = user.canColourSwapSet(set)
-                        console.log()
-                    })
-                    .map(set => <ListItem>{set.name}</ListItem>)
+                    .filter(set => { user.canColourSwapSet(set) })
+                    .map(set => <ListItem key={set.id}>{set.name}</ListItem>)
                 }
             </List>
             {/* {Object.keys(missingPieces).map(name => {

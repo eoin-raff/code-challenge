@@ -9,11 +9,11 @@ import { CircularProgress, List, ListItem, Typography } from '@mui/material'
 const BuildableSets = () => {
 
     const user = useContext(AuthContext)
-    if (!user) return <></>
 
     const [allSets, setAllSets] = useState<Array<SetData> | undefined>(undefined)
     const [buildableSets, setBuildableSets] = useState<Array<SetData> | undefined>(undefined)
     useEffect(() => {
+        if (!user) return
         (async () => {
             const allSetDetails = await getAllSetDetails()
             const buildableSets = allSets?.filter(set => userCanBuildSet(user, set))
@@ -22,6 +22,7 @@ const BuildableSets = () => {
         })()
     }, [])
 
+    if (!user) return <></>
 
     return (
         <>

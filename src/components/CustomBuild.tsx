@@ -20,7 +20,6 @@ const CustomBuild = () => {
         colorMap[code] = name
       });
       setColourLabels(colorMap)
-      console.log(colorMap)
     })()
   }, [])
 
