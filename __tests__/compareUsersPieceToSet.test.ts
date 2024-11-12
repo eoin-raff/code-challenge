@@ -1,4 +1,4 @@
-import compareUserPiecesToSet from '../src/utils/compareUserPiecesToSet'
+import compareUserPiecesToSet from '../src/utils/compareUsersPieceToSet'
 
 describe('comparePieces', () => {
     test('should return false for different pieces', () => {

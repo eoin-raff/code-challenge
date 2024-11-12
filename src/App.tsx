@@ -6,7 +6,7 @@ import { AuthContext } from './context/AuthContext'
 import User from './classes/user'
 import { Box, Button, Container, Typography } from '@mui/material'
 import './App.css'
-import SetsOverview from './components/SetsOverview'
+import BuildableSets from './components/BuildableSets'
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -68,7 +68,7 @@ function App() {
             </TabContext>}
           </Box>
           <Box sx={{ gridArea: 'sidebar' }}>
-            <SetsOverview />
+            <BuildableSets />
           </Box>
         </Box>
       </AuthContext.Provider >

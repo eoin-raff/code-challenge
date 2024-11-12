@@ -1,4 +1,4 @@
-import { UserSummary, GetUsers, GetData, UserData, GetSets, SetSummary, SetData } from '../../types'
+import { UserSummary, GetUsers, GetData, UserData, GetSets, SetSummary, SetData, Colour } from '../../types'
 
 const PROD_ENDPOINT = `https://d16m5wbro86fg2.cloudfront.net`
 
@@ -40,6 +40,6 @@ export const getSetById: GetData<SetData> = async (id: string, API_ENDPOINT = PR
 }
 
 //returns the full list of colours available
-export const getColours = async (API_ENDPOINT = PROD_ENDPOINT) => {
+export const getColours = async (API_ENDPOINT = PROD_ENDPOINT): Promise<{ colours: Colour[], disclaimer: string }> => {
     return getDataFromApi(`${API_ENDPOINT}/api/colours`)
 }

@@ -8,7 +8,7 @@ const userCanBuildSet = (user: User, set: SetData): boolean => {
      * If they have fewer pieces than the set requires, then they definitely can't build it
      */
 
-    if (set.totalPieces > user._brickCount) return false
+    if (set.totalPieces > user.brickCount) return false
 
     /**
      * if there are enough pieces, then find out if they have the right pieces, and the right quantity of each

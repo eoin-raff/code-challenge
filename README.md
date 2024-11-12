@@ -35,3 +35,11 @@ The user `landscape-artist` doesn't have the right pieces to build the set `trop
 - `spaceman77`
 
 </details>
+### Stretch Goal 1
+The user `megabuilder99` is interested in creating a new custom build but they want to make sure other people could complete it with their current inventories. What is the largest collection of pieces they should restrict themselves to if they want to ensure that at least 50% of other users could complete the build? 
+<details>
+<summary>Expand to see the answer</summary>
+
+`megabuilder99` can make a set with 869 bricks, and 50% of users will be able to build it
+
+</details>

@@ -6,10 +6,10 @@ describe('User', () => {
         const { id, username, location, brickCount, collection } = user
         const testUser = new User(user)
         expect(testUser.id).toBe(id)
-        expect(testUser._username).toBe(username)
-        expect(testUser._location).toBe(location)
-        expect(testUser._brickCount).toBe(brickCount)
-        expect(testUser._collection).toBe(collection)
+        expect(testUser.username).toBe(username)
+        expect(testUser.location).toBe(location)
+        expect(testUser.brickCount).toBe(brickCount)
+        expect(testUser.collection).toBe(collection)
     })
     describe('.hasPiece()', () => {
         test('returns false if no matching piece ID is in collection', () => {

@@ -38,19 +38,19 @@ export default class User {
 
         return true
     }
-    getMyCollectionAndOtherCollectionsAsPieces = async (user: User | UserData): Promise<[Piece[], Piece[][]]> => {
+    getMyCollectionAndOtherCollectionsAsPieces = async (): Promise<[Piece[], Piece[][]]> => {
         const details = await getAllUserDetails()
 
         const initial: Brick[][] = []
         const allCollections: Brick[][] = details.reduce((accumulator, currentDetails) => {
             //skip the current user
-            if (currentDetails.id === user.id) return accumulator
+            if (currentDetails.id === this.id) return accumulator
             return [...accumulator, currentDetails.collection]
         }, initial)
 
 
         //pieces are easier to compare than bricks, so convert both userCollection and allUsersCollections to pieces
-        const myCollection = convertBricksToPieces(user.collection)
+        const myCollection = convertBricksToPieces(this.collection)
         const otherUsersCollections = allCollections.map(collection => convertBricksToPieces(collection))
         return [myCollection, otherUsersCollections]
     }

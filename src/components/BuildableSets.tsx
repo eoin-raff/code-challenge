@@ -2,12 +2,11 @@ import { useContext, useEffect, useState } from 'react'
 import { SetData } from '../../types'
 import getAllSetDetails from '../utils/getAllSetDetails'
 import userCanBuildSet from '../utils/userCanBuildSet'
-import SetLookup from './SetLookup'
-import SingleSetOverview from './SingleSetOverview'
 import { AuthContext } from '../context/AuthContext'
+import { CircularProgress, List, ListItem, Typography } from '@mui/material'
 
 
-const SetsOverview = () => {
+const BuildableSets = () => {
 
     const user = useContext(AuthContext)
     if (!user) return <></>
@@ -26,14 +25,15 @@ const SetsOverview = () => {
 
     return (
         <>
-            {buildableSets && buildableSets.length > 0 ? <>
-                <h2>You can build these sets with your current pieces:</h2>
-                {buildableSets.map(set => <p>{set.name}</p>)}
-            </> : <p>loading</p>}
+            <Typography variant='h5'>You can build these sets with your current pieces:</Typography>
+            {buildableSets && buildableSets.length > 0 ? <List>
+                {buildableSets.map(set => <ListItem key={set.id}>{set.name}</ListItem>)}
+            </List> :
+                <CircularProgress />}
         </>
     )
 }
 
-export default SetsOverview
+export default BuildableSets
 
 

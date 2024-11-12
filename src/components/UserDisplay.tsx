@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import SetsOverview from './SetsOverview'
+import BuildableSets from './BuildableSets'
 import User from '../classes/user'
 import { AuthContext } from '../context/AuthContext'
 
