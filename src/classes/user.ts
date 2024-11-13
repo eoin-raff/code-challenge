@@ -2,7 +2,14 @@ import { UserData, Brick, SetData, SetSummary, Piece, BrickVariant } from '../..
 import convertBricksToPieces from '../utils/convertBricksToPieces'
 import getAllUserDetails from '../utils/getAllUserDetails'
 import getPieceWithColorFromSet from '../utils/getPieceWithColorFromSet'
+import getUniqueColorAlternatives from '../utils/getUniqueColorAlternatives'
 import userCanBuildSet from '../utils/userCanBuildSet'
+
+
+type AlternativePiecesMap = Record<string, Piece[]>
+type AlternativeColorsMap = Record<string, number[]>
+
+
 export default class User {
 
     private _id: string
@@ -70,40 +77,23 @@ export default class User {
         const otherUsersCollections = allCollections.map(collection => convertBricksToPieces(collection))
         return [myCollection, otherUsersCollections]
     }
-    canColourSwapSet = (set: SetData) => {
-        console.log('colorSwap')
+
+    canColourSwapSet = (set: SetData,): Record<string, number> | null => {
         let missingPieces: Piece[] = []
         const canBuild = userCanBuildSet(this, set, (_set, pieces) => missingPieces = [...pieces])
-        console.log('canBuild:', canBuild)
-        if (canBuild || missingPieces.length === 0) return false //no need to colour swap if you can build it already
+        //no need to colour swap if you can build it already
+        if (canBuild || missingPieces.length === 0) return null
 
-        //map through the missing pieces, and see if you have it in another color, with sufficient quantity
-        const alternativePieces = missingPieces.map(piece => {
-            return this.hasPieceInDifferentColour(piece)
-        })
-        console.log('alternatives:', alternativePieces)
-        // const altMap = missingPieces.reduce((accumulator, currentPiece) => {
-        //     const alts = this.hasPieceInDifferentColour(currentPiece)
-        //     if (alts.length === 0) return accumulator
+        const alternativeColors: AlternativeColorsMap = missingPieces.reduce((accumulator, currentPiece) => {
+            //find pieces that I have in another color
+            const alts = this.hasPieceInDifferentColour(currentPiece)
+            const initial: number[] = []
+            const altColors: number[] = alts.reduce((acc, current) => { return [...acc, current.part.material] }, initial)
 
-        //     return { ...accumulator, [currentPiece.part.designID]: alts }
-        // }, {})
+            return { ...accumulator, [currentPiece.part.designID]: altColors }
+        }, {})
 
-        // console.log(altMap)
-
-
-        const usedColorsFiltered = alternativePieces.map(
-            alternatives => alternatives.filter(altPiece => !getPieceWithColorFromSet(set, altPiece.part.material)))
-
-        console.log('usedColorsFiltered:', usedColorsFiltered)
-
-        //if any pieces have no alternatives, then you can't color swap
-        const noAltsFiltered = usedColorsFiltered.filter(alternatives => alternatives.length > 0)
-        console.log('noAltsFiltered:', noAltsFiltered)
-        if (alternativePieces.length !== noAltsFiltered.length) return false
-
-
-        return true
+        return getUniqueColorAlternatives(alternativeColors)
 
     }
 

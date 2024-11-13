@@ -33,9 +33,12 @@ const ColorSwap = () => {
             <Typography variant='h4'>But you might be able to build these sets with different colours:.</Typography>
             <List>
                 {nonBuildableSets
-                    .map(set => user.canColourSwapSet(set) && <ListItem key={set.id}>
-                        {set.name}
-                        </ListItem>)
+                    .map(set => {
+                        const [canSwap, alts] = user.canColourSwapSet(set)
+                        return <ListItem key={set.id}>
+                            {set.name}, {canSwap.toString()}
+                        </ListItem>
+                    })
                 }
             </List>
             {/* {Object.keys(missingPieces).map(name => {

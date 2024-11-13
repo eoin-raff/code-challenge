@@ -135,7 +135,7 @@ describe('User', () => {
                     { part: { designID: 'a', material: 1, partType: 'rigid' }, quantity: 5 }]
             }
 
-            expect(testUser.canColourSwapSet(testSet)).toBe(false)
+            expect(testUser.canColourSwapSet(testSet)).toBe(null)
         })
         test('should return false if there is a piece the user does not have enough of in another color', () => {
             const testUser = new User({
@@ -159,7 +159,7 @@ describe('User', () => {
                 ]
             }
 
-            expect(testUser.canColourSwapSet(testSet)).toBe(false)
+            expect(testUser.canColourSwapSet(testSet)).toBe(null)
         })
         test('should return false if the only available alts are in a color that is used already', () => {
             const testUser = new User({
@@ -182,12 +182,14 @@ describe('User', () => {
                 ]
             }
 
-            expect(testUser.canColourSwapSet(testSet)).toBe(false)
+            expect(testUser.canColourSwapSet(testSet)).toBe(null)
         })
+
         test('should return true if user has enough of the same pieces in a different colour', () => {
             const testUser = new User({
                 ...user, collection: [
-                    { pieceId: 'a', variants: [{ color: '2', count: 5 }] },
+                    { pieceId: 'a', variants: [{ color: '2', count: 5 }, { color: '3', count: 5 }] },
+                    { pieceId: 'b', variants: [{ color: '2', count: 5 }] },
 
                 ]
             })
@@ -198,10 +200,35 @@ describe('User', () => {
                 totalPieces: 5,
                 pieces: [
                     { part: { designID: 'a', material: 1, partType: 'rigid' }, quantity: 5 },
+                    { part: { designID: 'b', material: 2, partType: 'rigid' }, quantity: 5 },
                 ]
             }
 
-            expect(testUser.canColourSwapSet(testSet)).toBe(true)
+            expect(testUser.canColourSwapSet(testSet)).not.toBe(null)
+        })
+
+        test('should return true if used colors can also be swapped', () => {
+            const testUser = new User({
+                ...user, collection: [
+                    { pieceId: 'walls', variants: [{ color: '2', count: 5 }] },
+                    { pieceId: 'roof', variants: [{ color: '4', count: 5 }] },
+                    { pieceId: 'flag', variants: [{ color: '3', count: 5 }] },
+
+                ]
+            })
+            const testSet: SetData = {
+                name: 'testset',
+                id: 'abc123',
+                setNumber: '1',
+                totalPieces: 5,
+                pieces: [
+                    { part: { designID: 'walls', material: 1, partType: 'rigid' }, quantity: 5 },
+                    { part: { designID: 'roof', material: 2, partType: 'rigid' }, quantity: 5 },
+                    { part: { designID: 'flag', material: 3, partType: 'rigid' }, quantity: 5 },
+                ]
+            }
+
+            expect(testUser.canColourSwapSet(testSet)).not.toBe(null)
         })
 
     })
