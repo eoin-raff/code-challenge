@@ -161,6 +161,29 @@ describe('User', () => {
 
             expect(testUser.canColourSwapSet(testSet)).toBe(false)
         })
+        test('should return false if the only available alts are in a color that is used already', () => {
+            const testUser = new User({
+                ...user, collection: [
+                    {
+                        pieceId: 'a', variants: [
+                            { color: '2', count: 5 },
+                        ]
+                    },
+                ]
+            })
+            const testSet: SetData = {
+                name: 'testset',
+                id: 'abc123',
+                setNumber: '1',
+                totalPieces: 5,
+                pieces: [
+                    { part: { designID: 'a', material: 1, partType: 'rigid' }, quantity: 5 },
+                    { part: { designID: 'b', material: 2, partType: 'rigid' }, quantity: 5 }
+                ]
+            }
+
+            expect(testUser.canColourSwapSet(testSet)).toBe(false)
+        })
         test('should return true if user has enough of the same pieces in a different colour', () => {
             const testUser = new User({
                 ...user, collection: [
