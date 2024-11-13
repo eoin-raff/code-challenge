@@ -1,6 +1,9 @@
 import User from '../src/classes/user'
 import { user, set } from '../mocks'
 import { SetData } from '../types'
+import { getUserById, getUserByUsername } from '../src/utils/api'
+
+import getAllSetDetails from '../src/utils/getAllSetDetails'
 
 describe('User', () => {
     test('is constructed correctly', () => {
@@ -229,6 +232,16 @@ describe('User', () => {
             }
 
             expect(testUser.canColourSwapSet(testSet)).not.toBe(null)
+        })
+
+        test('prod', async () => {
+
+            const { id } = await getUserByUsername('dr_crocodile')
+            const userData = await getUserById(id)
+            const dr_crocodile = new User(userData)
+
+            const sets = await getAllSetDetails()
+
         })
 
     })

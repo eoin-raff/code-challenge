@@ -34,10 +34,13 @@ const ColorSwap = () => {
             <List>
                 {nonBuildableSets
                     .map(set => {
-                        const [canSwap, alts] = user.canColourSwapSet(set)
-                        return <ListItem key={set.id}>
-                            {set.name}, {canSwap.toString()}
+                        const alts = user.canColourSwapSet(set)
+                        return <ListItem key={set.id} >
+                            {set.name}, {
+                                JSON.stringify(alts)}
                         </ListItem>
+
+
                     })
                 }
             </List>
@@ -50,7 +53,7 @@ const ColorSwap = () => {
                     })}
                 </>
             })} */}
-        </Box>
+        </Box >
     )
 }
 

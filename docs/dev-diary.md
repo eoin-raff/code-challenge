@@ -1,2 +1,0 @@
-- setup boilerplate frontend app with vite, React & typescript
-- explore provided APIs using Postman

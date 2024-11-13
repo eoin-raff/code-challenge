@@ -94,9 +94,7 @@ export default class User {
         }, {})
 
         return getUniqueColorAlternatives(alternativeColors)
-
     }
-
 
     private _getMatchingPieceFromCollection = (id: string): Brick | undefined => {
         const matchingPiece = this._collection.find(({ pieceId }) => {
@@ -111,7 +109,6 @@ export default class User {
         })
         return matchingVariant
     }
-
 
 
 }
